@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { VRM } from '@pixiv/three-vrm';
+import { VRM, VRMSchema, VRMHumanoid, VRMBlendShapeGroup } from '@pixiv/three-vrm';
+import { Vector2 } from 'three';
+import { threadId } from 'worker_threads';
 
 window.addEventListener('DOMContentLoaded', ()=>{
   const scene = new THREE.Scene();
@@ -21,13 +23,32 @@ window.addEventListener('DOMContentLoaded', ()=>{
   // const cube = new THREE.Mesh(geometry,material);
   // scene.add(cube);
 
+  const points = [];
+  points.push(new THREE.Vector2(0.3,0.01));
+  points.push(new THREE.Vector2(0.4,0.01));
+  const geo = new THREE.LatheGeometry(points,64);
+  const mat = new THREE.MeshBasicMaterial();
+  const c = new THREE.Mesh(geo,mat);
+  scene.add(c);
+  c.rotation.z = Math.PI;
+
+  const geo2 = new THREE.LatheGeometry(
+    [
+      new Vector2(0.42, 0.01),
+      new Vector2(0.45, 0.01)
+    ],64
+  );
+  const c2 = new THREE.Mesh(geo2, mat)
+  scene.add( c2 );
+  c2.rotation.z = Math.PI;
+
   const light = new THREE.DirectionalLight(0xffffff);
   light.position.set(1.0, 1.0, 1.0).normalize();
   scene.add(light);
 
   const loader = new GLTFLoader();
 
-  let model: THREE.Scene;
+  let model: VRM;
   loader.load(
     './models/undefined-chan-toon.vrm',
 
@@ -35,7 +56,14 @@ window.addEventListener('DOMContentLoaded', ()=>{
       VRM.from(glft).then((vrm)=>{
         scene.add(vrm.scene);
         vrm.scene.rotation.y = Math.PI;
-        model = vrm.scene;
+        
+        vrm.humanoid!.getBoneNode(VRMSchema.HumanoidBoneName.LeftUpperArm)!.rotation.z = Math.PI/2 - 0.3;
+        vrm.humanoid!.getBoneNode(VRMSchema.HumanoidBoneName.RightUpperArm)!.rotation.z = -(Math.PI/2 - 0.3);
+        vrm.blendShapeProxy!.setValue(VRMSchema.BlendShapePresetName.Fun, 1);
+        vrm.blendShapeProxy!.setValue(VRMSchema.BlendShapePresetName.Sorrow, 0.08);
+        vrm.blendShapeProxy!.update();
+        
+        model = vrm;
         console.log(vrm);        
       })
     },
@@ -46,11 +74,9 @@ window.addEventListener('DOMContentLoaded', ()=>{
   camera.position.z = 2;
   camera.position.y = 1;
 
+  let clock = new THREE.Clock();
   let animate = function(){
     requestAnimationFrame(animate);
-
-    if(model)
-      model.rotation.y += 0.01;
 
     renderer.render(scene, camera);
   }

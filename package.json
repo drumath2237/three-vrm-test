@@ -17,6 +17,7 @@
   },
   "scripts": {
     "build": "webpack",
+    "build:watch": "webpack --watch",
     "start:dev": "webpack-dev-server --content-base ./ --watch-content-base --open-page index.html --inline"
   }
 }
