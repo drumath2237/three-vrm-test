@@ -49,7 +49,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
   let animate = function(){
     requestAnimationFrame(animate);
 
-    model.rotation.y += 0.01;
+    if(model)
+      model.rotation.y += 0.01;
 
     renderer.render(scene, camera);
   }

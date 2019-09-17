@@ -7,7 +7,8 @@
     "ts-loader": "^6.1.0",
     "typescript": "^3.6.3",
     "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.8"
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.1"
   },
   "dependencies": {
     "@pixiv/three-vrm": "^0.1.1",
@@ -15,6 +16,7 @@
     "three": "^0.108.0"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "start:dev": "webpack-dev-server --content-base ./ --watch-content-base --open-page index.html --inline"
   }
 }
