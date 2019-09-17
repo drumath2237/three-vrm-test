@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   const renderer = new THREE.WebGLRenderer();
 
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x4CAEAD,1.0);
   document.body.appendChild(renderer.domElement);
 
   // const geometry = new THREE.BoxGeometry(1,1,1);
@@ -25,13 +26,16 @@ window.addEventListener('DOMContentLoaded', ()=>{
   scene.add(light);
 
   const loader = new GLTFLoader();
+
+  let model: THREE.Scene;
   loader.load(
-    './models/shino-sendagaya.vrm',
+    './models/undefined-chan-toon.vrm',
 
     (glft)=>{
       VRM.from(glft).then((vrm)=>{
         scene.add(vrm.scene);
         vrm.scene.rotation.y = Math.PI;
+        model = vrm.scene;
         console.log(vrm);        
       })
     },
@@ -44,6 +48,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
   let animate = function(){
     requestAnimationFrame(animate);
+
+    model.rotation.y += 0.01;
 
     renderer.render(scene, camera);
   }
