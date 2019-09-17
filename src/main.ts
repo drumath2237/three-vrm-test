@@ -7,7 +7,7 @@ import { threadId } from 'worker_threads';
 window.addEventListener('DOMContentLoaded', ()=>{
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
-    75,
+    45,
     window.innerWidth/window.innerHeight,
     0.1,
     1000
@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   const points = [];
   points.push(new THREE.Vector2(0.3,0.01));
   points.push(new THREE.Vector2(0.4,0.01));
-  const geo = new THREE.LatheGeometry(points,64);
+  const geo = new THREE.LatheGeometry(points,64, 1.0, 5.0);
   const mat = new THREE.MeshBasicMaterial();
   const c = new THREE.Mesh(geo,mat);
   scene.add(c);
@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     [
       new Vector2(0.42, 0.01),
       new Vector2(0.45, 0.01)
-    ],64
+    ],64,0,2.0
   );
   const c2 = new THREE.Mesh(geo2, mat)
   scene.add( c2 );
@@ -71,12 +71,15 @@ window.addEventListener('DOMContentLoaded', ()=>{
     (error)=>{console.log(error);}
   );
 
-  camera.position.z = 2;
+  camera.position.z = 3;
   camera.position.y = 1;
 
   let clock = new THREE.Clock();
   let animate = function(){
     requestAnimationFrame(animate);
+
+    c.rotation.y += 0.01;
+    c2.rotation.y += 0.03;
 
     renderer.render(scene, camera);
   }
