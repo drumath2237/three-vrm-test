@@ -9,3 +9,11 @@
 - three.js
 - @types/three
 - @pixiv/three-vrm
+
+## install
+
+```bash
+yarn install
+```
+
+then, add vrm file into `/models/` directory.
