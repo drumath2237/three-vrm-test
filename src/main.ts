@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   * meshes rotation function
   * use this for frame counter
   */
-  const meshes_loop_speeds = [0.01, 0.03];
+  const meshes_loop_speeds = [0.04, 0.507];
   let MeshesUpdate = () =>
     meshes.map( (mesh, index) =>
       mesh.rotation.y += meshes_loop_speeds[index]
@@ -60,7 +60,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   // vrm model import
   const loader = new GLTFLoader();
   loader.load(
-    './models/undefined-chan-toon.vrm',
+    '/models/undefined-chan-toon.vrm',
 
     (glft)=>{
       VRM.from(glft).then((vrm)=>{
