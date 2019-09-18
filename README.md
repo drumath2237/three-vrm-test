@@ -9,11 +9,12 @@
 - three.js
 - @types/three
 - @pixiv/three-vrm
+- webpack-dev-server
 
-## install
+## install and run
 
 ```bash
 yarn install
+yarn build
+yarn start:dev
 ```
-
-then, add vrm file into `/models/` directory.
