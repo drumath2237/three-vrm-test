@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { VRM, VRMSchema, VRMHumanoid, VRMBlendShapeGroup } from '@pixiv/three-vrm';
 import { Vector2 } from 'three';
-import { threadId } from 'worker_threads';
 
 window.addEventListener('DOMContentLoaded', ()=>{
   const scene = new THREE.Scene();
