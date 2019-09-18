@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   renderer.setClearColor(0x4CAEAD,1.0);
   document.body.appendChild(renderer.domElement);
 
-  const geometrys: THREE.LatheGeometry[] = [];
+  const geometrys: THREE.LatheGeometry[] = []; // array contains geometries
   geometrys.push(
     new THREE.LatheGeometry(
       [
@@ -33,27 +33,33 @@ window.addEventListener('DOMContentLoaded', ()=>{
     )
   );
 
+  /*
+  * Geometry to Mesh and register meshes to scene
+  */
   let meshes: THREE.Mesh[] = [];
-  geometrys.map((geo)=>meshes.push(new THREE.Mesh(geo, new THREE.MeshBasicMaterial())));
-  meshes.map( (m) => {
-    scene.add(m);
-  })
+  geometrys.map( ( geo ) => meshes.push( new THREE.Mesh( geo, new THREE.MeshBasicMaterial() ) ) );
+  meshes.map( (m) => scene.add(m) );
 
+  /*
+  * meshes rotation function
+  * use this for frame counter
+  */
   const meshes_loop_speeds = [0.01, 0.03];
-
   let MeshesUpdate = () =>
     meshes.map( (mesh, index) =>
       mesh.rotation.y += meshes_loop_speeds[index]
     );
 
 
+  // light settings
   const light = new THREE.DirectionalLight(0xffffff);
   light.position.set(1.0, 1.0, 1.0).normalize();
   scene.add(light);
 
-  const loader = new GLTFLoader();
+  let model: VRM; // current vrm model
 
-  let model: VRM;
+  // vrm model import
+  const loader = new GLTFLoader();
   loader.load(
     './models/undefined-chan-toon.vrm',
 
