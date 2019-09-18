@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { VRM, VRMSchema, VRMHumanoid, VRMBlendShapeGroup } from '@pixiv/three-vrm';
-import { Vector2, Mesh, Geometry, MeshBasicMaterial } from 'three';
 
 window.addEventListener('DOMContentLoaded', ()=>{
   const scene = new THREE.Scene();
@@ -22,13 +21,13 @@ window.addEventListener('DOMContentLoaded', ()=>{
     new THREE.LatheGeometry(
       [
         new THREE.Vector2(0.4, 0.01),
-        new Vector2(0.3,0.01)
+        new THREE.Vector2(0.3,0.01)
       ], 64, 1.0, 5.0
     ),
     new THREE.LatheGeometry(
       [
-        new Vector2(0.45, 0.01),
-        new Vector2(0.42, 0.01),
+        new THREE.Vector2(0.45, 0.01),
+        new THREE.Vector2(0.42, 0.01),
       ], 64, 0, 2.0
     )
   );
