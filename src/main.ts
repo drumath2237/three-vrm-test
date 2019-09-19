@@ -85,7 +85,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         vrm.blendShapeProxy!.update();
 
         vrm.lookAt!.target = camera;
-        // vrm.lookAt!.update();
+        vrm.lookAt!.update();
         
         model = vrm;
         console.log(vrm);        
@@ -98,16 +98,53 @@ window.addEventListener('DOMContentLoaded', ()=>{
   camera.position.z = 3;
   camera.position.y = 1;
 
+  // const cube_geo = new THREE.BoxGeometry(1,1,1);
+  // const cube_mesh = new THREE.Mesh(cube_geo, new THREE.MeshBasicMaterial());
+  // scene.add(cube_mesh);
+
   let clock = new THREE.Clock();
   let animate = function(){
     requestAnimationFrame(animate);
 
+    const delta = clock.getDelta();
+
     MeshesUpdate();
-    model.lookAt!.update();
+    if(model !== undefined){
+      model.lookAt!.update();
+
+      model.update(delta);
+      
+    }
 
     renderer.render(scene, camera);
   }
 
   animate();
+
+  window.addEventListener("mousemove", (e)=>{
+    camera.position.x = ( (e.clientX-(window.innerWidth/2))/(window.innerWidth/2) ) * 3;
+    camera.rotation.y = Math.atan(camera.position.x/3);
+
+    camera.position.y = -(e.clientY-(window.innerHeight/2))/(window.innerHeight/2);
+    camera.rotation.x = Math.atan(-camera.position.y/3);
+    camera.position.y += 1;
+
+    model.humanoid!.getBoneNode(VRMSchema.HumanoidBoneName.Head)!.rotation.x = Math.atan( (camera.position.y-1.5)/3 );
+    model.humanoid!.getBoneNode(VRMSchema.HumanoidBoneName.Head)!.rotation.y = camera.rotation.y;
+  })
+
+  window.addEventListener("touchmove", (event) => {
+    camera.position.x = ( (event.changedTouches[0].clientX-(window.innerWidth/2))/(window.innerWidth/2) ) * 3;
+    camera.rotation.y = Math.atan(camera.position.x/3);
+
+    camera.position.y = -(event.changedTouches[0].clientY-(window.innerHeight/2))/(window.innerHeight/2);
+    camera.rotation.x = Math.atan(-camera.position.y/3);
+    camera.position.y += 1;
+
+    model.humanoid!.getBoneNode(VRMSchema.HumanoidBoneName.Head)!.rotation.x = Math.atan( (camera.position.y-1.5)/3 );
+    model.humanoid!.getBoneNode(VRMSchema.HumanoidBoneName.Head)!.rotation.y = camera.rotation.y;
+
+
+  })
 
 })
