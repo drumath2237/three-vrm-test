@@ -4,16 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.3",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "ts-loader": "^6.1.0",
+    "typescript": "^3.6.3",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.1"
   },
   "dependencies": {
-    "@pixiv/three-vrm": "^0.2.0",
+    "@pixiv/three-vrm": "^0.1.1",
     "@types/three": "^0.103.2",
-    "three": "^0.111.0"
+    "three": "^0.108.0"
   },
   "scripts": {
     "build": "webpack",

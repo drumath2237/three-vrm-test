@@ -85,7 +85,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         vrm.blendShapeProxy!.update();
 
         vrm.lookAt!.target = camera;
-        vrm.lookAt!.update();
+        vrm.lookAt!.update(0.0);
         
         model = vrm;
         console.log(vrm);        
@@ -110,7 +110,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
     MeshesUpdate();
     if(model !== undefined){
-      model.lookAt!.update();
+      model.lookAt!.update(delta);
 
       model.update(delta);
       
