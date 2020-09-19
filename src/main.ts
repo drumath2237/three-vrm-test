@@ -68,7 +68,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   // vrm model import
   const loader = new GLTFLoader();
   loader.load(
-    '/models/undefined-chan-toon.vrm',
+    '/three-vrm-test/models/undefined-chan-toon.vrm',
 
     (glft)=>{
       VRM.from(glft).then((vrm)=>{
